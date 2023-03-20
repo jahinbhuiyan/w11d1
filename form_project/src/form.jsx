@@ -8,7 +8,7 @@ const Form = () => {
         <form>
             <input type="text" placeholder="Name" />
             <input type="email" placeholder="Email"/>
-            <input type="text" placeholder="PhoneNumber"/>
+            <input type="number" placeholder="PhoneNumber"/>
             <select name="PhoneType">
                 <option value="home"> Home </option>
                 <option value="work"> Work </option>
