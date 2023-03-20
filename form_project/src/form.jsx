@@ -30,8 +30,12 @@ const Form = () => {
     const handleChange = (field)=>{
         // debugger
         return (e)=>{
-            const val = e.target.value;
+            let val = e.target.value;
+                if(e.target.checked){
 
+                    val = true;
+                    
+                }
             setUser({
                 ...user,
                 [field]:val
@@ -63,6 +67,19 @@ const Form = () => {
          }
         }
     
+    const handleRadio = (field) => {
+        return (e) => {
+            const element = e.target
+            if(element.checked || element.selected){
+                const val = e.target.value
+
+                setUser({
+                    ...user,
+                    [field]:val
+                });
+            }
+        }
+    }
 
 
     return(
@@ -75,26 +92,28 @@ const Form = () => {
             <input type="email" placeholder="Email" value = {user.email} onChange = {handleChange("email")}/>
             <input type="number" placeholder="1-###-###-####" value = {user.phoneNumber} onChange ={handleChange("phoneNumber")}/>
             <select name="PhoneType">
-                <option value="home"> Home </option>
-                <option value="work"> Work </option>
-                <option value="mobile"> Mobile </option>
+                <option value="home" onChange={handleRadio('phoneType')}> Home </option>
+                <option value="work" onChange={handleRadio('phoneType')}> Work </option>
+                <option value="mobile" onChange={handleRadio('phoneType')}> Mobile </option>
             </select>
-            <input type="radio" id="instructor" name="staff" value="instructor"/>
+            <input type="radio" id="instructor" name="staff" value="instructor" onChange={handleRadio('staff')}/>
             <label for="instructor">Instructor</label>
-            <input type="radio" id="student" name="staff" value="student"/>
+            <input type="radio" id="student" name="staff" value="student"onChange={handleRadio('staff')}/>
             <label for="student">Student</label>
             <br/>
             <label for="bio">Biography</label>
             <br/>
             <textarea id="bio" name="bio" placeholder="enter BIO here" value = {user.bio} onChange ={handleChange("bio")}/>
             <br/>
-            <input type="checkbox" id="email" name="email"/>
+            <input type="checkbox" id="email" name="email" value="false"  onChange={handleChange("emailNotifications")}/>
             <label for="email">Email Notification?</label>
             <br/>
             <input type = "submit" value = "Submit"/>
         </form>
         </>
     )
+
+
 
 }
 
