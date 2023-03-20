@@ -86,7 +86,7 @@ const Form = () => {
             <br/>
             <label for="bio">Biography</label>
             <br/>
-            <textarea id="bio" name="bio" placeholder="enter BIO here"/>
+            <textarea id="bio" name="bio" placeholder="enter BIO here" value = {user.bio} onChange ={handleChange("bio")}/>
             <br/>
             <input type="checkbox" id="email" name="email"/>
             <label for="email">Email Notification?</label>
