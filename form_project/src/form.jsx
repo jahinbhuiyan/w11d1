@@ -15,6 +15,7 @@ const Form = () => {
     const [errors,setErrors] = useState([]);
 
     const handleSubmit = (e) =>{
+        // debugger
         e.preventDefault();
 
         const currentErrors = validate();
@@ -28,6 +29,7 @@ const Form = () => {
     }
 
     const handleChange = (field)=>{
+        // debugger
         // debugger
         return (e)=>{
             let val = e.target.value;
@@ -53,7 +55,11 @@ const Form = () => {
         if (user.email.length ===0 ){
             currentErrors.push("Email cannot be empty")
         }
-         if (user.phoneNumber.length){
+
+        // if(!(user.email.split(".").length === 2 && user.email.split(".")[0].includes("@")) ){
+        //     currentErrors.push("Not valid Email")
+        // }
+         if (user.phoneNumber){
             if(user.phoneNumber.length !== 12){
                 currentErrors.push("Not a valid phonenumber")
             }
@@ -65,9 +71,15 @@ const Form = () => {
          if (user.bio.length > 280){
             currentErrors.push("Exceeded character limit")
          }
+
+         if (!user.staff){
+            currentErrors.push("Please select a Staff Type")
+         }
+         return currentErrors
         }
     
     const handleRadio = (field) => {
+        // debugger
         return (e) => {
             const element = e.target
             if(element.checked || element.selected){
@@ -90,28 +102,30 @@ const Form = () => {
         <form onSubmit = {handleSubmit}>
             <input type="text" placeholder="Name" value = {user.name} onChange={handleChange("name")} />
             <input type="email" placeholder="Email" value = {user.email} onChange = {handleChange("email")}/>
-            <input type="number" placeholder="1-###-###-####" value = {user.phoneNumber} onChange ={handleChange("phoneNumber")}/>
-            <select name="PhoneType">
-                <option value="home" onChange={handleRadio('phoneType')}> Home </option>
-                <option value="work" onChange={handleRadio('phoneType')}> Work </option>
-                <option value="mobile" onChange={handleRadio('phoneType')}> Mobile </option>
+            <input type="text" placeholder="1-###-###-####" value = {user.phoneNumber} onChange ={handleChange("phoneNumber")}/>
+            <select name="PhoneType" onChange = {handleChange("phoneType")} value = {user.phoneType}>
+                <option value="home"> Home </option>
+                <option value="work" > Work </option>
+                <option value="mobile"> Mobile </option>
             </select>
             <input type="radio" id="instructor" name="staff" value="instructor" onChange={handleRadio('staff')}/>
-            <label for="instructor">Instructor</label>
+            <label htmlFor="instructor">Instructor</label>
             <input type="radio" id="student" name="staff" value="student"onChange={handleRadio('staff')}/>
-            <label for="student">Student</label>
+            <label htmlFor="student">Student</label>
             <br/>
-            <label for="bio">Biography</label>
+            <label htmlFor="bio">Biography</label>
             <br/>
             <textarea id="bio" name="bio" placeholder="enter BIO here" value = {user.bio} onChange ={handleChange("bio")}/>
             <br/>
             <input type="checkbox" id="email" name="email" value="false"  onChange={handleChange("emailNotifications")}/>
-            <label for="email">Email Notification?</label>
+            <label htmlFor="email">Email Notification?</label>
             <br/>
             <input type = "submit" value = "Submit"/>
         </form>
+        <div>{console.log(user)}</div>
         </>
     )
+    console.log(user)
 
 
 
